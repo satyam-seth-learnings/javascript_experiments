@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation API Demo</title>
+</head>
+<body>
+    <h1>Geolocation API Demo</h1>
+    <table border="1">
+        <caption>Your Location Information</caption>
+        <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Timestamp</th>
+        </tr>
+        <tr>
+            <td id="latitude"></td>
+            <td id="longitude"></td>
+            <td id="timestamp"></td>
+        </tr>
+    </table>
+    <script>
+        function showGeolocationInfomation(position) {
+            const { latitude, longitude } = position.coords;
+            document.getElementById('latitude').innerText=latitude;
+            document.getElementById('longitude').innerText=longitude;
+            document.getElementById('timestamp').innerText=position.timestamp;
+        }
+        window.onload= () => {
+            window.navigator.geolocation.getCurrentPosition(showGeolocationInfomation);
+        }
+    </script>
+</body>
+</html>
