@@ -1,0 +1,1 @@
+[Docs Link](https://select2.org/getting-started)
