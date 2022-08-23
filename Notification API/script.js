@@ -1,4 +1,4 @@
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     const button = document.querySelector('button');
 
     if (window.self !== window.top) {
