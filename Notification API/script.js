@@ -26,7 +26,7 @@ window.addEventListener('load', async () => {
                 if (document.visibilityState !== "visible") {
                     // If the page is not visible, we want to focus it
                     // so the user can see the result of the notification
-                    window.parent.focus();
+                    window.focus();
                     notification.close();
                 }
             }
@@ -43,7 +43,7 @@ window.addEventListener('load', async () => {
                         if (document.visibilityState !== "visible") {
                             // If the page is not visible, we want to focus it
                             // so the user can see the result of the notification
-                            window.parent.focus();
+                            window.focus();
                             notification.close();
                         }
                     }
