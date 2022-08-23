@@ -10,6 +10,9 @@ window.addEventListener('load', () => {
         return;
     }
 
+    // Request permission to show notifications.
+    await Notification.requestPermission();
+
     button.addEventListener('click', () => {
         if (Notification?.permission === "granted") {
             // If the user agreed to get notified
@@ -18,7 +21,7 @@ window.addEventListener('load', () => {
             // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
             const interval = setInterval(() => {
                 // Thanks to the tag, we should only see the "Hi! 9" notification
-                const n = new Notification(`Hi! ${i}`, { tag: 'soManyNotification', icon: 'https://avatars.githubusercontent.com/u/63374020?v=4' });
+                const n = new Notification(`Hi! ${i}`);
 
                 // Close the notification
                 n.click = () => {
@@ -46,7 +49,7 @@ window.addEventListener('load', () => {
                     // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
                     const interval = setInterval(() => {
                         // Thanks to the tag, we should only see the "Hi! 9" notification
-                        const n = new Notification(`Hi! ${i}`, { tag: 'soManyNotification', icon: 'https://avatars.githubusercontent.com/u/63374020?v=4' });
+                        const n = new Notification(`Hi! ${i}`);
 
                         // Close the notification
                         n.click = () => {
