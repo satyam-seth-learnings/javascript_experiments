@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Debouncing</title>
+</head>
+
+<body>
+    <main>
+        <div class="example-container" id="with-debouncing">
+            <h1>With Debouncing</h1>
+            <div class="input-container">
+                <div>
+                    <label for="topic1">Search Image:</label>
+                    <input type="search" id="topic1" placeholder="Enter a topic">
+                </div>
+                <p class="counter">No. of API Calls: <span>0</span></p>
+            </div>
+            <div class="img-container">
+                <img src="intro-img.gif" alt="intro-img-example-img">
+            </div>
+        </div>
+        <div class="example-container" id="without-debouncing">
+            <h1>Without Debouncing</h1>
+            <div class="input-container">
+                <div>
+                    <label for="topic2">Search Image</label>
+                    <input type="search" id="topic2" placeholder="Enter a topic">
+                </div>
+                <p class="counter">No. of API Calls: <span>0</span></p>
+            </div>
+            <div class="img-container">
+                <img src="intro-img.gif" alt="without-debouncing-example-img">
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
