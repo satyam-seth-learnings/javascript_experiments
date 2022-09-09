@@ -55,12 +55,12 @@ window.onload = () => {
     // Using new keyword
     // new ClickAndHold(demoButton, () => {
     //     console.log('Long Press');
-    //     alert('Long Press Directed');
+    //     alert('Long Press Detected');
     // });
 
     // Without using new keyword
     ClickAndHold.apply(demoButton, () => {
         console.log('Long Press');
-        alert('Long Press Directed');
+        alert('Long Press Detected');
     });
 }
