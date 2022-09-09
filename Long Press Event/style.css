@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background-color: black;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+h1 {
+  padding: 1rem;
+}
+
+.glow {
+  position: relative;
+  background-color: #020c1b;
+  color: #64ffda;
+  border-radius: 10px;
+}
+
+.glow:before,
+.glow:after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(to right, #00f260, #0575e6, #00f260);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  border-radius: 0.6rem;
+  border-radius: inherit;
+  animation: steam 20s infinite alternate;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.glow:after {
+  filter: blur(50px);
+}
+
+.btn {
+  border: 0;
+  outline: 0;
+  padding: 1rem;
+  cursor: pointer;
+  display: grid;
+  font-size: 1.5em;
+  place-items: center;
+  position: relative;
+  border-radius: 0.6rem;
+  background-color: #541614;
+}
+.btn:before {
+  position: absolute;
+  content: "CLICK ME!!";
+  width: 100%;
+  height: 100%;
+  background-color: #ce352e;
+  border-radius: 10px;
+  transform: translateY(-10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2px;
+  font-weight: 800;
+  transition: all 0.25s ease;
+  color: white;
+}
+
+.btn:active:before {
+  font-size: 1.4rem;
+  transform: translateY(calc(-1px));
+}
