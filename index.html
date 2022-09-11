@@ -7,27 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Experiments</title>
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            padding-top: 50px;
-            display: grid;
-            place-items: center;
-            gap: 20px;
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
             background-color: black;
         }
 
         a {
-            border: 2px solid gray;
-            border-radius: 10px;
-            font-size: 20px;
             color: white;
-            padding: 20px;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
             text-decoration: none;
+            border: 2px solid gray;
             background-color: rgba(123, 255, 0, 0.3);
         }
 
         a:hover {
-            background-color: rgba(123, 255, 0, 0.6);
             border-color: white;
+            background-color: rgba(123, 255, 0, 0.6);
         }
     </style>
 </head>
@@ -41,6 +47,7 @@
     <a href="./Notification API/demo.html">Notification API</a>
     <a href="./Debouncing/demo.html">Debouncing</a>
     <a href="./Long Press Event/demo.html">Long Press Event</a>
+    <a href="./Highlight Search Result Text/demo.html">Highlight Search Result Text</a>
 </body>
 
 </html>
