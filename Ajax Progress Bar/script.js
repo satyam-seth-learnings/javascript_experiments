@@ -1,6 +1,6 @@
 document.querySelector('button').addEventListener('click', function () {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://source.unsplash.com/random');
+    xhr.open('GET', 'https://picsum.photos/1000');
     xhr.responseType = 'blob';
 
     xhr.onload = function () {
