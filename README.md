@@ -9,3 +9,5 @@ TODO: Remove or finalize
 - Detect user have working microphone or not (Experimental)
 
 - Try [Interactive LottieFiles](https://youtu.be/-bGTLlnGbZo)
+
+- Pending Bar Chart
