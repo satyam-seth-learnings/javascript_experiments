@@ -38,51 +38,57 @@ h1 {
   width: 800px;
   height: 300px;
   display: grid;
-  place-items: center;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-columns: repeat(8, 1fr);
+  gap: 0.5rem;
+  grid-template: 1fr auto / 1fr auto;
 
-  .day {
-    margin-top: 1rem;
-    grid-row: 8/9;
+  .days {
+    display: grid;
+    place-items: center;
+    grid-auto-flow: column;
   }
 
-  .hour {
-    grid-column: 8/9;
+  .hours {
+    display: grid;
   }
 
-  .data {
-    width: 80%;
+  .bars {
+    display: grid;
+    grid-template: repeat(5, 1fr) / repeat(7, 1fr);
+    justify-items: center;
+  }
+
+  .bar {
+    width: 50%;
     grid-row: 1/8;
     align-self: end;
     background-color: red;
   }
 
-  .sun {
-    height: 20%;
-  }
+  // .sun {
+  //   height: 20%;
+  // }
 
-  .mon {
-    height: 70%;
-  }
+  // .mon {
+  //   height: 70%;
+  // }
 
-  .tue {
-    height: 30%;
-  }
+  // .tue {
+  //   height: 30%;
+  // }
 
-  .wed {
-    height: 86%;
-  }
+  // .wed {
+  //   height: 86%;
+  // }
 
-  .thu {
-    height: 15%;
-  }
+  // .thu {
+  //   height: 15%;
+  // }
 
-  .fri {
-    height: 55%;
-  }
+  // .fri {
+  //   height: 55%;
+  // }
 
-  .sat {
-    height: 42.9%;
-  }
+  // .sat {
+  //   height: 42.9%;
+  // }
 }
