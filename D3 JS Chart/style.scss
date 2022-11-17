@@ -48,6 +48,7 @@ section.setting-container {
 
   .setting {
     padding: 1rem;
+    text-align: center;
     background-color: black;
 
     .header {
@@ -55,10 +56,22 @@ section.setting-container {
       margin-bottom: 2rem;
     }
 
-    #chart-container {
+    .chart-container {
+      position: relative;
       padding: 0.5rem;
+      margin-bottom: 2rem;
       border-radius: 1rem;
       background-color: white;
+
+      // .tooltip {
+      //   position: absolute;
+      //   // display: none;
+      //   display: flex;
+      //   flex-direction: column;
+      //   width: fit-content;
+      //   background-color: black;
+      //   padding: 0.5rem;
+      // }
 
       .axis-scale {
         color: black;
