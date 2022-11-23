@@ -11,46 +11,45 @@ const BAR_CHART_DATA: BarChartData[] = [
     {
         day: "S",
         calls: 10,
-        cost: 20,
+        cost: 90,
     },
     {
         day: "M",
         calls: 20,
-        cost: 50,
+        cost: 500.123,
     },
     {
         day: "T",
         calls: 50,
-        cost: 10,
+        cost: 103.25,
     },
     {
         day: "W",
         calls: 14,
-        cost: 20,
+        cost: 202.214,
     },
     {
         day: "TH",
         calls: 6,
-        cost: 47,
+        cost: 473.321,
     },
     {
         day: "F",
         calls: 10.8,
-        cost: 7.8,
+        cost: 700.013,
     },
 ];
 
 
-
 function drawBarChart() {
     // set chart dimensions
-    const margin = { right: 30, bottom: 20 };
+    const margin = { right: 30, top: 80, bottom: 20 };
 
     // set width
     const width = 712 - margin.right;
 
     // set height
-    const height = 400 - margin.bottom;
+    const height = 400 - margin.bottom - margin.top;
 
     // selecting chart container
     const chartContainer = d3.select("#bar-chart-container");
@@ -58,10 +57,10 @@ function drawBarChart() {
     // appending svg tag for chart
     const chart = chartContainer
         .append("svg")
-        .attr("viewBox", `0 0 ${width + margin.right} ${height + margin.bottom + 20}`)
+        .attr("viewBox", `0 0 ${width + margin.right} ${height + margin.bottom + margin.top}`)
         // Append g tag for set margin
         .append("g")
-        .attr("transform", `translate(0,${margin.bottom})`);
+        .attr("transform", `translate(0,${margin.top})`);
 
     // prepare days data for x axis scale
     const days = ["S", "S", "M", "T", "W", "TH", "F", "S"];
@@ -79,7 +78,7 @@ function drawBarChart() {
         .call(d3.axisBottom(x).tickSizeOuter(0));
 
     // get max cost value from data
-    const maxCost = d3.max(STACKED_CHART_DATA, (d: any) => d.Personal + d.Home);
+    const maxCost = d3.max(BAR_CHART_DATA, (d: any) => d.cost);
 
     // crate y axis scale
     const y = d3.scaleLinear()
@@ -92,110 +91,72 @@ function drawBarChart() {
         .attr("transform", "translate(" + width + ")")
         .call(d3.axisRight(y));
 
-    const tooltip = chart.append('g')
-        .attr('class', 'tooltip')
-        .style('opacity', 0);
 
-    // append text tag to show total cost
-    tooltip.append('text')
-        .attr('class', 'cost');
+    // show tooltip onMouseover on bar
+    const onMouseover = (event: Event, d: any) => {
+        // set tooltip position
+        const tooltip = d3.select('.tooltip');
+        tooltip.style('opacity', 1)
+            .attr('transform', `translate(${x(d.day) + 3}, ${y(d.cost) - 80})`);
 
-    // append text tag to show number of calls
-    tooltip.append('text')
-        .attr('class', 'calls');
+        // set current bar total cost info
+        d3.select('.tooltip .cost')
+            .text(`Cost - ${d.cost} `);
 
-    // // append g tag for tooltip container
-    // const tooltip = chartContainer.append('div')
-    //     .attr('class', 'tooltip')
-    //     .style('position', 'absolute')
-    //     .style('opacity', 0)
-    //     .style('color', 'white')
-    //     .style("background-color", "black")
-    //     .style("border", "solid")
-    //     .style("border-color", "gray")
-    //     .style("border-width", "2px")
-    //     .style("border-radius", "5px")
-    //     .style("padding", "5px")
-
-    // // append text tag to show total cost
-    // tooltip.append('p')
-    //     .attr('class', 'cost');
-
-    // // append text tag to show number of calls
-    // tooltip.append('p')
-    //     .attr('class', 'calls');
+        // set current bar number of calls info
+        d3.select('.tooltip .calls')
+            .text(`Calls - ${d.calls} `);
 
 
-    // // hide tooltip onMouseleave on bar
-    // const onMouseleave = () => {
-    //     d3.select('.tooltip').style('opacity', 0);
-    // };
+        // set tooltip rect width and position
+        const tooltipRect = d3.select('.background-rect');
+        const bboxGroup = tooltip.node().getBBox();
+        tooltipRect.style('opacity', 1)
+            .attr('x', (x(d.day) + 3).toString())
+            .attr('y', (y(d.cost) - 80).toString())
+            .attr('width', (bboxGroup.width + 10).toString())
+            .attr('height', (bboxGroup.height + 6).toString());
+    };
 
-
-    // // show tooltip onMouseover on bar
-    // const onMouseover = (e: Event, d: any) => {
-    //     d3.select('.tooltip').style('opacity', 1);
-
-    //     console.log(d3.pointer(e));
-    //     console.log((width / d3.pointer(e)[0]) * 100);
-
-    //     // set tooltip position
-    //     d3.select('.tooltip')
-    //         .style('left', (d3.pointer(e)[0] + 10) + 'px')
-    //     // .style("left", ((width / d3.pointer(e)[0]) * 100) + "%")
-    //     // .style("top", (height / d3.pointer(this)[1]) + "%");
-    //     // .attr('transform', `translate(${x(d.day)}, ${y(d.cost) - 20})`);
-
-    //     // set current bar total cost info
-    //     d3.select('.tooltip .cost')
-    //         .text(`Total Cost - ${d.cost}`);
-
-    //     // set current bar number of calls info
-    //     d3.select('.tooltip .calls')
-    //         .text(`Total Calls - ${d.calls}`)
-    //         .attr('transform', 'translate(0, 15)');
-    // }
+    // hide tooltip onMouseleave on bar
+    const onMouseleave = () => {
+        d3.select('.tooltip').style('opacity', 0);
+        d3.select('.background-rect').style('opacity', 0);
+    };
 
     // show bars
     chart.selectAll()
         .data(BAR_CHART_DATA)
         .enter()
         .append("rect")
+        .attr('class', 'bar')
         .attr("x", (d: any) => x(d.day))
         .attr("y", (d: any) => y(d.cost))
         .attr("width", x.bandwidth())
         .attr("height", (d: any) => height - y(d.cost))
-        .attr("fill", "#FFC107")
-        .on('mouseover', (e: Event, d: any) => {
-            tooltip.style('opacity', 1)
-                .attr('transform', `translate(${x(d.day)}, ${y(d.cost) - 75})`);
+        .on('mouseleave', onMouseleave)
+        .on('mouseover', onMouseover);
 
-            // set current bar total cost info
-            tooltip.select('.cost')
-                .text(`Total Cost - ${d.cost}`)
 
-            // set current bar number of calls info
-            tooltip.select('.calls')
-                .text(`Total Calls - ${d.calls}`)
-                .attr('transform', 'translate(0, 20)');
+    // append rect for tooltip background
+    chart.append('rect')
+        .attr('class', 'background-rect')
+        .attr('height', 32)
+        .attr('rx', '6');
 
-        })
-        .on('mouseleave', () => {
-            tooltip.style('opacity', 0);
-        });
+    // append g tag for tooltip container
+    const tooltip = chart.append('g')
+        .attr('class', 'tooltip');
 
-    // .on("mouseover", function (e: Event, d: any) {
-    //     d3.select(this)
-    //         .attr("opacity", 0.8);
-    //     onMouseover(e, d);
-    // })
-    // .on("mouseout", function (d: any) {
-    //     d3.select(this)
-    //         .attr("opacity", 1);
+    // append text tag to show total cost
+    tooltip.append('text')
+        .attr('class', 'cost')
+        .attr('transform', 'translate(4, 17)');
 
-    //     onMouseleave();
-    // });
-
+    // append text tag to show number of calls
+    tooltip.append('text')
+        .attr('class', 'calls')
+        .attr('transform', 'translate(4, 36)');
 
     // show top cost text
     chart.selectAll()
@@ -206,7 +167,7 @@ function drawBarChart() {
         .attr("y", (d: any) => y(d.cost) - 10)
         .attr("text-anchor", "middle")
         .attr("font-size", "12px")
-        .text((d: any) => `Cost ${d.cost}`);
+        .text((d: any) => `Cost ${d.cost} `);
 
     // show top calls text
     chart.selectAll()
@@ -217,10 +178,7 @@ function drawBarChart() {
         .attr("y", (d: any) => y(d.cost) - 25)
         .attr("text-anchor", "middle")
         .attr("font-size", "12px")
-        .text((d: any) => `Calls ${d.calls}`);
-
-
-
+        .text((d: any) => `Calls ${d.calls} `);
 };
 
 
@@ -281,10 +239,10 @@ function drawStackedChart() {
     // appending svg tag for chart
     const chart = chartContainer
         .append("svg")
-        .attr("viewBox", `0 0 ${width + margin.right} ${height + margin.bottom + 20}`)
+        .attr("viewBox", `0 0 ${width + margin.right} ${height + margin.bottom + 20} `)
         // Append g tag for set margin
         .append("g")
-        .attr("transform", `translate(0,${margin.bottom})`);
+        .attr("transform", `translate(0, ${margin.bottom})`);
 
     // prepare days data for x axis scale
     const days = ["S", "S", "M", "T", "W", "TH", "F", "S"];
@@ -325,8 +283,6 @@ function drawStackedChart() {
 
     // creating stacked data
     const stackedData = stack(STACKED_CHART_DATA);
-
-    console.log(stackedData);
 
     // color palette = one color per phone number label
     var color = d3

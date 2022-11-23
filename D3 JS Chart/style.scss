@@ -57,25 +57,31 @@ section.setting-container {
     }
 
     .chart-container {
-      position: relative;
       padding: 0.5rem;
       margin-bottom: 2rem;
       border-radius: 1rem;
       background-color: white;
 
-      // .tooltip {
-      //   position: absolute;
-      //   // display: none;
-      //   display: flex;
-      //   flex-direction: column;
-      //   width: fit-content;
-      //   background-color: black;
-      //   padding: 0.5rem;
-      // }
-
       .axis-scale {
         color: black;
         font-size: 13px;
+      }
+
+      .bar{
+        fill: #cb3c3c;
+        &:hover{
+          cursor: pointer;
+          opacity: 0.9;
+        }
+      }
+
+      .tooltip{
+        opacity: 0;
+      }
+
+      .background-rect{
+        stroke: black;
+        fill: #e9e9e9;
       }
     }
   }
