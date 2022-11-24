@@ -11,7 +11,7 @@ const BAR_CHART_DATA: BarChartData[] = [
     {
         day: "S",
         calls: 10,
-        cost: 90,
+        cost: 190.098765432,
     },
     {
         day: "M",
@@ -26,7 +26,7 @@ const BAR_CHART_DATA: BarChartData[] = [
     {
         day: "W",
         calls: 14,
-        cost: 202.214,
+        cost: 1092.243214,
     },
     {
         day: "TH",
@@ -36,7 +36,7 @@ const BAR_CHART_DATA: BarChartData[] = [
     {
         day: "F",
         calls: 10.8,
-        cost: 700.013,
+        cost: 700.0536243543513,
     },
 ];
 
@@ -94,10 +94,7 @@ function drawBarChart() {
 
     // show tooltip onMouseover on bar
     const onMouseover = (event: Event, d: any) => {
-        // set tooltip position
         const tooltip = d3.select('.tooltip');
-        tooltip.style('opacity', 1)
-            .attr('transform', `translate(${x(d.day) + 3}, ${y(d.cost) - 80})`);
 
         // set current bar total cost info
         d3.select('.tooltip .cost')
@@ -107,14 +104,48 @@ function drawBarChart() {
         d3.select('.tooltip .calls')
             .text(`Calls - ${d.calls} `);
 
+        // get tooltip box dimensions
+        const bboxGroup = tooltip.node().getBBox();
+
+        console.log(bboxGroup);
+        console.log(x.bandwidth());
+        console.log(d);
+        console.log(x(d.day));
+        console.log(event);
+
+        // center tooltip box
+        // xPos = bar x position - (bar width - tooltip background rect width) / 2
+        // tooltip background rect width = tooltip box width + padding
+        let xPosition = x(d.day) - (bboxGroup.width - x.bandwidth() + 6) / 2;
+
+
+        if (xPosition < 0) {
+            /**
+             * if tooltip box is out of chart container from left side then
+             * set x position to 0 + tooltip background rect padding + 1
+             */
+            xPosition = 4;
+        } else if (xPosition + bboxGroup.width > width) {
+            /**
+             * if tooltip box is out of chart container from right side then 
+             * set x position to chart container width - tooltip box width - tooltip background rect padding - 1
+             */
+            xPosition = width - bboxGroup.width - 4;
+        }
+        console.log(xPosition);
+
+        // set tooltip position
+        tooltip.style('opacity', 1)
+            .attr('transform', `translate(${xPosition - 3}, ${y(d.cost) - 80})`);
+
 
         // set tooltip rect width and position
         const tooltipRect = d3.select('.background-rect');
-        const bboxGroup = tooltip.node().getBBox();
         tooltipRect.style('opacity', 1)
-            .attr('x', (x(d.day) + 3).toString())
+            //  set tooltip rect width = tooltip box width + padding
+            .attr('x', (xPosition - 3).toString())
             .attr('y', (y(d.cost) - 80).toString())
-            .attr('width', (bboxGroup.width + 10).toString())
+            .attr('width', (bboxGroup.width + 6).toString())
             .attr('height', (bboxGroup.height + 6).toString());
     };
 
@@ -138,26 +169,6 @@ function drawBarChart() {
         .on('mouseover', onMouseover);
 
 
-    // append rect for tooltip background
-    chart.append('rect')
-        .attr('class', 'background-rect')
-        .attr('height', 32)
-        .attr('rx', '6');
-
-    // append g tag for tooltip container
-    const tooltip = chart.append('g')
-        .attr('class', 'tooltip');
-
-    // append text tag to show total cost
-    tooltip.append('text')
-        .attr('class', 'cost')
-        .attr('transform', 'translate(4, 17)');
-
-    // append text tag to show number of calls
-    tooltip.append('text')
-        .attr('class', 'calls')
-        .attr('transform', 'translate(4, 36)');
-
     // show top cost text
     chart.selectAll()
         .data(BAR_CHART_DATA)
@@ -179,6 +190,26 @@ function drawBarChart() {
         .attr("text-anchor", "middle")
         .attr("font-size", "12px")
         .text((d: any) => `Calls ${d.calls} `);
+
+    // append rect for tooltip background
+    chart.append('rect')
+        .attr('class', 'background-rect')
+        .attr('height', 32)
+        .attr('rx', '6');
+
+    // append g tag for tooltip container
+    const tooltip = chart.append('g')
+        .attr('class', 'tooltip');
+
+    // append text tag to show total cost
+    tooltip.append('text')
+        .attr('class', 'cost')
+        .attr('transform', 'translate(4, 17)');
+
+    // append text tag to show number of calls
+    tooltip.append('text')
+        .attr('class', 'calls')
+        .attr('transform', 'translate(4, 36)');
 };
 
 
