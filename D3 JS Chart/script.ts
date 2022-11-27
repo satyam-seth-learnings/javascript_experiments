@@ -303,7 +303,7 @@ function drawStackedChart() {
         .append("g")
         .attr("class", "axis-scale")
         .attr("transform", "translate(" + width + ")")
-        .call(d3.axisRight(y));
+        .call(d3.axisRight(y).ticks(5));
 
     // prepare data for stacked phone numbers profile
     const labels = ["Personal", "Home"];

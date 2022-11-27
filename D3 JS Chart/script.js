@@ -60,7 +60,7 @@ function drawBarChart() {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x).tickSizeOuter(0));
     // get max cost value from data
-    var maxCost = d3.max(BAR_CHART_DATA, function (d) { return d.cost; });
+    var maxCost = d3.max(BAR_CHART_DATA, function (d) { return d.cost; }) || 1;
     // crate y axis scale
     var y = d3.scaleLinear()
         .domain([0, maxCost])
@@ -234,7 +234,7 @@ function drawStackedChart() {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x).tickSizeOuter(0));
     // get max cost value from data
-    var maxCost = d3.max(STACKED_CHART_DATA, function (d) { return d.Personal + d.Home; });
+    var maxCost = d3.max(STACKED_CHART_DATA, function (d) { return d.Personal + d.Home; }) || 1;
     // crate y axis scale
     var y = d3.scaleLinear()
         .domain([0, maxCost])
@@ -244,7 +244,7 @@ function drawStackedChart() {
         .append("g")
         .attr("class", "axis-scale")
         .attr("transform", "translate(" + width + ")")
-        .call(d3.axisRight(y));
+        .call(d3.axisRight(y).ticks(5));
     // prepare data for stacked phone numbers profile
     var labels = ["Personal", "Home"];
     // create stack for all phone numbers
