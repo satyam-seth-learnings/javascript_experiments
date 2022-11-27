@@ -78,7 +78,7 @@ function drawBarChart() {
         .call(d3.axisBottom(x).tickSizeOuter(0));
 
     // get max cost value from data
-    const maxCost = d3.max(BAR_CHART_DATA, (d: any) => d.cost);
+    const maxCost = d3.max(BAR_CHART_DATA, (d: any) => d.cost) || 1;
 
     // crate y axis scale
     const y = d3.scaleLinear()
@@ -291,7 +291,7 @@ function drawStackedChart() {
         .call(d3.axisBottom(x).tickSizeOuter(0));
 
     // get max cost value from data
-    const maxCost = d3.max(STACKED_CHART_DATA, (d: any) => d.Personal + d.Home);
+    const maxCost = d3.max(STACKED_CHART_DATA, (d: any) => d.Personal + d.Home) || 1;
 
     // crate y axis scale
     const y = d3.scaleLinear()
