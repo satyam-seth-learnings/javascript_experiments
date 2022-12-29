@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Side Filter</title>
+</head>
+
+<body>
+    <main>
+        <ul id="main-list"></ul>
+
+        <ul id="side-filter-list"></ul>
+    </main>
+
+    <script>
+        const mainListData = [
+            'A for Apple',
+            'B for Ball',
+            'C for Cat',
+            'D for Doll',
+            'E for Egg',
+            'F for Frog',
+            'G for Glass',
+            'H for Hat',
+            'I for Igloo',
+            'J for Jam',
+            'K for Kite',
+            'L for Lamb',
+            'M for Man',
+            'N for Net',
+            'O for Onion',
+            'P for Pen',
+            'Q for Queen',
+            'R for Ring',
+            'S for Star',
+            'T for Train',
+            'U for Umbrella',
+            'V for Van',
+            'W for Watch',
+            'X for Xylophone.',
+            'Y for Yacht',
+            'Z for Zebra',
+        ]
+
+        const sideFilterListData = [
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+        ]
+
+
+        const mainList = document.getElementById("main-list");
+        const sideFilterList = document.getElementById("side-filter-list");
+
+        mainListData.forEach((data, index) => {
+            const tile = document.createElement('li');
+            tile.id = `tile-${index}`;
+            tile.className = 'tile';
+            tile.innerText = data;
+            mainList.appendChild(tile);
+        });
+
+
+        sideFilterListData.forEach((data, index) => {
+            const tile = document.createElement('li');
+            tile.id = `side-filter-tile-${index}`;
+            tile.className = 'side-filter-tile';
+            tile.innerText = data;
+            sideFilterList.appendChild(tile);
+        });
+
+    </script>
+</body>
+
+</html>
