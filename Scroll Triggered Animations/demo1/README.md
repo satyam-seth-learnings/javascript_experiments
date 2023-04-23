@@ -4,3 +4,5 @@
 
 
 - [Alternative Option greensock pluggin](https://greensock.com/scrolltrigger/)
+
+- [logrocket Blog link](https://blog.logrocket.com/use-scroll-linked-animations-right-way/)
