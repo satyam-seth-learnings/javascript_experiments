@@ -1,0 +1,1 @@
+[blog link](https://coolcssanimation.com/how-to-trigger-a-css-animation-on-scroll/)
