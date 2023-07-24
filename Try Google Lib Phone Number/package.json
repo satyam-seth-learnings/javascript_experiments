@@ -1,0 +1,25 @@
+{
+  "name": "try-google-lib-phone-number",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "google-libphonenumber": "^3.2.32",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2",
+    "libphonenumber-js": "^1.10.37",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
