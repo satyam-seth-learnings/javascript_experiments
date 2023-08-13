@@ -52,28 +52,24 @@ export class Page {
         // append content
         contentContainer.appendChild(this.content);
 
-        // append page button
+        // append open page button
         contentContainer.appendChild(this.openPageButton);
+
+        // append close page button
+        contentContainer.appendChild(this.closePageButton);
 
         return contentContainer;
     }
 
     /**
      * 
-     * Empty container to close the page
+     * Empty container for overlay effect
      * 
      * @returns {HTMLDivElement}
      */
     private get emptyContainer(): HTMLDivElement {
         const emptyContainer = document.createElement('div');
         emptyContainer.className = 'page__empty-container';
-
-        // add click event listener
-        emptyContainer.addEventListener('click', () => {
-            console.log(`closing current page - namespace -> ${this.config.namespace}`);
-            this.pageCloseHandler();
-        })
-
         return emptyContainer;
     }
 
@@ -110,6 +106,28 @@ export class Page {
 
         return button;
     }
+
+    /**
+     * 
+     * button to close current page
+     * 
+     * @returns {HTMLButtonElement}
+     * 
+     */
+    get closePageButton(): HTMLButtonElement {
+        const button = document.createElement('button');
+        button.className = 'close-page-btn';
+        button.innerText = 'Close This Page';
+
+        // add click event listener
+        button.addEventListener('click', () => {
+            console.log(`closing current page - namespace -> ${this.config.namespace}`);
+            this.pageCloseHandler();
+        })
+
+        return button;
+    }
+
 
     /**
      * 
