@@ -1,0 +1,48 @@
+.page {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: rgba(255, 255, 255, 0.05);
+
+    &__empty-container {
+        display: none;
+        cursor: not-allowed;
+    }
+
+    &__content-container {
+        padding: 1rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: black;
+    }
+
+    &__content {
+        color: whitesmoke;
+        font-size: 2rem;
+    }
+
+    // Tablet
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+
+        &__empty-container {
+            display: block;
+        }
+
+        &__content-container {
+            border-radius: 1.5rem 0 0 1.5rem;
+        }
+    }
+
+    // Desktop
+    @media screen and (min-width: 1090px) {
+        grid-template-columns: 2fr 1fr;
+    }
+}
