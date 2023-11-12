@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  color: white;
+  gap: 1rem;
+  place-items: center;
+  background-color: black;
+}
+
+h1 {
+  padding: 1rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+  border: 0.25rem solid gray;
+}
+
+.wrapper {
+  width: 80%;
+  position: relative;
+  color: #d4d4d4;
+  border-radius: 1rem;
+  background-color: #1c1c1e;
+}
+
+.wrapper.outlined {
+  outline: 0.125rem solid #ffb300;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1rem 0rem 1rem;
+  color: inherit;
+  font-size: 1.25rem;
+  font-family: inherit;
+  background-color: transparent;
+}
+
+.counter {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  color: gray;
+  font-size: 1rem;
+}
