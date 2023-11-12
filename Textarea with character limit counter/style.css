@@ -23,6 +23,7 @@ h1 {
 
 .wrapper {
   width: 80%;
+  padding: 1rem 0.5rem 0rem 1rem;
   position: relative;
   color: #d4d4d4;
   border-radius: 1rem;
@@ -39,7 +40,7 @@ textarea {
   border: none;
   outline: none;
   margin-bottom: 1.5rem;
-  padding: 1rem 1rem 0rem 1rem;
+  padding-right: 0.5rem;
   color: inherit;
   font-size: 1.25rem;
   font-family: inherit;
@@ -52,4 +53,18 @@ textarea {
   right: 0.75rem;
   color: gray;
   font-size: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0.25rem;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+  background-color: #d9d9d9;
 }
