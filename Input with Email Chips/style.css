@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background-color: black;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+h1 {
+  padding: 1rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+  border: 0.25rem solid gray;
+}
+
+label {
+  padding: 1rem;
+  display: flex;
+  width: 80%;
+  gap: 0.75rem;
+  flex-direction: column;
+  border-radius: 1rem;
+  border: 1px solid beige;
+  background-color: #1c1c1e;
+}
+
+.chips-container {
+  align-self: start;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.chip {
+  padding: 0.25rem 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  background-color: rgba(172, 255, 47, 0.25);
+  border: 1px solid rgb(172, 255, 47);
+  border-radius: 1rem;
+}
+.chip .text-element {
+  font-size: 1rem;
+}
+.chip button {
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  font-size: 1.25rem;
+  color: rgb(255, 132, 0);
+  background-color: transparent;
+}
+.chip button:active {
+  color: red;
+}
+
+.error-text {
+  color: rgb(255, 90, 0);
+  font-size: 0.8rem;
+}
+
+input {
+  border: 0;
+  outline: 0;
+  color: inherit;
+  font-size: 1.25rem;
+  font-size: inherit;
+  background-color: transparent;
+}/*# sourceMappingURL=style.css.map */

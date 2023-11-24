@@ -1,6 +1,6 @@
-class TextAreaInputContainer {
+class InputContainer {
     constructor() {
-        this.textAreaId = "email-input";
+        this.inputId = "email-input";
         this.items = [];
         this.handleDelete = (email) => {
             this.items = this.items.filter((i) => i !== email);
@@ -19,11 +19,11 @@ class TextAreaInputContainer {
         this.handleKeyDown = (event) => {
             if (["Enter", "Tab", ",", " "].includes(event.key)) {
                 event.preventDefault();
-                const value = this.getTextAreaElementValue();
+                const value = this.getInputElementValue();
                 if (value && this.isValid(value)) {
                     this.items = [...this.items, value];
                     this.appendEmailChip(value);
-                    this.resetTextAreaElementValue();
+                    this.inputElementValue();
                 }
             }
         };
@@ -54,13 +54,13 @@ class TextAreaInputContainer {
         const chipsContainer = document.querySelector(".chips-container");
         chipsContainer.innerHTML = "";
     }
-    resetTextAreaElementValue() {
-        const textAreaElement = document.getElementById(this.textAreaId);
-        textAreaElement.value = "";
+    inputElementValue() {
+        const inputElement = document.getElementById(this.inputId);
+        inputElement.value = "";
     }
-    getTextAreaElementValue() {
-        const textAreaElement = document.getElementById(this.textAreaId);
-        return textAreaElement.value.trim();
+    getInputElementValue() {
+        const inputElement = document.getElementById(this.inputId);
+        return inputElement.value.trim();
     }
     appendEmailChip(email) {
         const chipsContainer = document.querySelector(".chips-container");
@@ -68,8 +68,10 @@ class TextAreaInputContainer {
     }
     ///// skeletons
     getChipElement(email) {
-        const chipContainer = document.createElement("div");
-        chipContainer.innerText = email;
+        const chipElement = document.createElement("div");
+        chipElement.className = "chip";
+        const textElement = document.createElement("span");
+        textElement.innerText = email;
         const removeButton = document.createElement("button");
         removeButton.innerText = "x";
         // Add click event listener
@@ -77,16 +79,17 @@ class TextAreaInputContainer {
             e.target.parentElement.remove();
             this.handleDelete(email);
         };
-        chipContainer.appendChild(removeButton);
-        return chipContainer;
+        chipElement.appendChild(textElement);
+        chipElement.appendChild(removeButton);
+        return chipElement;
     }
-    getTextAreaElement() {
-        const textAreaInputElement = document.createElement("textarea");
-        textAreaInputElement.id = this.textAreaId;
-        textAreaInputElement.onpaste = this.handlePaste;
-        // textAreaInputElement.onchange = this.handleChange;
-        textAreaInputElement.onkeydown = this.handleKeyDown;
-        return textAreaInputElement;
+    getInputElement() {
+        const inputElement = document.createElement("input");
+        inputElement.type = "email";
+        inputElement.id = this.inputId;
+        inputElement.onpaste = this.handlePaste;
+        inputElement.onkeydown = this.handleKeyDown;
+        return inputElement;
     }
     getChipsContainer() {
         const chipsContainer = document.createElement("div");
@@ -100,9 +103,9 @@ class TextAreaInputContainer {
     }
     getLabelElement() {
         const labelElement = document.createElement("label");
-        labelElement.setAttribute("for", this.textAreaId);
+        labelElement.setAttribute("for", this.inputId);
         labelElement.appendChild(this.getChipsContainer());
-        labelElement.appendChild(this.getTextAreaElement());
+        labelElement.appendChild(this.getInputElement());
         labelElement.appendChild(this.getErrorTextElement());
         return labelElement;
     }
@@ -111,7 +114,7 @@ class TextAreaInputContainer {
     }
 }
 window.onload = function () {
-    const textAreaInputContainer = new TextAreaInputContainer();
+    const inputContainer = new InputContainer();
     const mainElement = document.querySelector("main");
-    mainElement.appendChild(textAreaInputContainer.skeleton());
+    mainElement.appendChild(inputContainer.skeleton());
 };

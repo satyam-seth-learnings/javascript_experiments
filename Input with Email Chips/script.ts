@@ -1,5 +1,5 @@
-class TextAreaInputContainer {
-  textAreaId = "email-input";
+class InputContainer {
+  inputId = "email-input";
   items: string[] = [];
 
   ///// handlers
@@ -46,18 +46,18 @@ class TextAreaInputContainer {
     chipsContainer.innerHTML = "";
   }
 
-  resetTextAreaElementValue() {
-    const textAreaElement = document.getElementById(
-      this.textAreaId
-    )! as HTMLTextAreaElement;
-    textAreaElement.value = "";
+  inputElementValue() {
+    const inputElement = document.getElementById(
+      this.inputId
+    )! as HTMLInputElement;
+    inputElement.value = "";
   }
 
-  getTextAreaElementValue() {
-    const textAreaElement = document.getElementById(
-      this.textAreaId
-    )! as HTMLTextAreaElement;
-    return textAreaElement.value.trim();
+  getInputElementValue() {
+    const inputElement = document.getElementById(
+      this.inputId
+    )! as HTMLInputElement;
+    return inputElement.value.trim();
   }
 
   appendEmailChip(email: string) {
@@ -83,12 +83,12 @@ class TextAreaInputContainer {
     if (["Enter", "Tab", ",", " "].includes(event.key)) {
       event.preventDefault();
 
-      const value = this.getTextAreaElementValue();
+      const value = this.getInputElementValue();
 
       if (value && this.isValid(value)) {
         this.items = [...this.items, value];
         this.appendEmailChip(value);
-        this.resetTextAreaElementValue();
+        this.inputElementValue();
       }
     }
   };
@@ -96,8 +96,11 @@ class TextAreaInputContainer {
   ///// skeletons
 
   getChipElement(email: string): HTMLDivElement {
-    const chipContainer = document.createElement("div");
-    chipContainer.innerText = email;
+    const chipElement = document.createElement("div");
+    chipElement.className = "chip";
+
+    const textElement = document.createElement("span");
+    textElement.innerText = email;
 
     const removeButton = document.createElement("button");
     removeButton.innerText = "x";
@@ -108,20 +111,21 @@ class TextAreaInputContainer {
       this.handleDelete(email);
     };
 
-    chipContainer.appendChild(removeButton);
+    chipElement.appendChild(textElement);
+    chipElement.appendChild(removeButton);
 
-    return chipContainer;
+    return chipElement;
   }
 
-  getTextAreaElement() {
-    const textAreaInputElement = document.createElement("textarea");
-    textAreaInputElement.id = this.textAreaId;
+  getInputElement() {
+    const inputElement = document.createElement("input");
+    inputElement.type = "email";
+    inputElement.id = this.inputId;
 
-    textAreaInputElement.onpaste = this.handlePaste;
-    // textAreaInputElement.onchange = this.handleChange;
-    textAreaInputElement.onkeydown = this.handleKeyDown;
+    inputElement.onpaste = this.handlePaste;
+    inputElement.onkeydown = this.handleKeyDown;
 
-    return textAreaInputElement;
+    return inputElement;
   }
 
   getChipsContainer() {
@@ -138,10 +142,10 @@ class TextAreaInputContainer {
 
   getLabelElement() {
     const labelElement = document.createElement("label");
-    labelElement.setAttribute("for", this.textAreaId);
+    labelElement.setAttribute("for", this.inputId);
 
     labelElement.appendChild(this.getChipsContainer());
-    labelElement.appendChild(this.getTextAreaElement());
+    labelElement.appendChild(this.getInputElement());
     labelElement.appendChild(this.getErrorTextElement());
 
     return labelElement;
@@ -153,8 +157,8 @@ class TextAreaInputContainer {
 }
 
 window.onload = function () {
-  const textAreaInputContainer = new TextAreaInputContainer();
+  const inputContainer = new InputContainer();
 
   const mainElement = document.querySelector("main")!;
-  mainElement.appendChild(textAreaInputContainer.skeleton());
+  mainElement.appendChild(inputContainer.skeleton());
 };
