@@ -39,14 +39,12 @@ class InputContainer {
     errorTextElement.innerText = text;
   }
 
-  resetChipsContainer() {
-    const chipsContainer = document.querySelector(
-      ".chips-container"
-    )! as HTMLElement;
-    chipsContainer.innerHTML = "";
+  removeEmailChips() {
+    const emailChips = document.querySelectorAll(".chip");
+    emailChips.forEach((chip) => chip.remove());
   }
 
-  inputElementValue() {
+  clearInputElementValue() {
     const inputElement = document.getElementById(
       this.inputId
     )! as HTMLInputElement;
@@ -61,7 +59,7 @@ class InputContainer {
   }
 
   appendEmailChip(email: string) {
-    const chipsContainer = document.querySelector(".chips-container")!;
+    const chipsContainer = document.querySelector("label")!;
     chipsContainer.appendChild(this.getChipElement(email));
   }
 
@@ -74,7 +72,7 @@ class InputContainer {
     if (emails) {
       const toBeAdded = emails.filter((email) => !this.isInList(email));
       this.items = [...this.items, ...toBeAdded];
-      this.resetChipsContainer();
+      this.removeEmailChips();
       this.items.forEach((email) => this.appendEmailChip(email));
     }
   };
@@ -88,7 +86,7 @@ class InputContainer {
       if (value && this.isValid(value)) {
         this.items = [...this.items, value];
         this.appendEmailChip(value);
-        this.inputElementValue();
+        this.clearInputElementValue();
       }
     }
   };
@@ -100,6 +98,7 @@ class InputContainer {
     chipElement.className = "chip";
 
     const textElement = document.createElement("span");
+    textElement.className = "text-element";
     textElement.innerText = email;
 
     const removeButton = document.createElement("button");
@@ -128,12 +127,6 @@ class InputContainer {
     return inputElement;
   }
 
-  getChipsContainer() {
-    const chipsContainer = document.createElement("div");
-    chipsContainer.className = "chips-container";
-    return chipsContainer;
-  }
-
   getErrorTextElement() {
     const errorElement = document.createElement("p");
     errorElement.className = "error-text";
@@ -144,15 +137,19 @@ class InputContainer {
     const labelElement = document.createElement("label");
     labelElement.setAttribute("for", this.inputId);
 
-    labelElement.appendChild(this.getChipsContainer());
     labelElement.appendChild(this.getInputElement());
-    labelElement.appendChild(this.getErrorTextElement());
 
     return labelElement;
   }
 
   skeleton() {
-    return this.getLabelElement();
+    const inputContainer = document.createElement("div");
+    inputContainer.className = "input-container";
+
+    inputContainer.appendChild(this.getLabelElement());
+    inputContainer.appendChild(this.getErrorTextElement());
+
+    return inputContainer;
   }
 }
 
