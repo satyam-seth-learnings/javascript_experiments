@@ -1,0 +1,1 @@
+- [Medium Blog Link](https://sqkhor.medium.com/create-an-otp-input-with-javascript-c0c9f7c610fe)
