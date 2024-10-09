@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>Check</button>
+    <script>
+
+class GoogleOAuth {
+  clientId;
+
+  apiKey;
+
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  scopes = ['https://www.googleapis.com/auth/contacts.readonly'];
+
+  discoveryDoc = 'https://www.googleapis.com/discovery/v1/apis/people/v1/rest';
+
+  constructor(clientId, apiKey) {
+    this.clientId = clientId;
+    this.apiKey = apiKey;
+  }
+
+  getScopes() {
+    return this.scopes.join(' ');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  checkToken() {
+    console.log('check for token');
+    const fragmentString = window.location.hash.substring(1);
+
+    // Parse query string to see if page request is coming from OAuth 2.0 server.
+    const params = {};
+    const regex = /([^&=]+)=([^&]*)/g;
+
+    let m;
+
+    do {
+      m = regex.exec(fragmentString);
+      if (m) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+      }
+    } while (m);
+
+    console.log(params);
+
+    if (Object.keys(params).length > 0) {
+      // TODO: store token in secured storage
+      localStorage.setItem('oauth2-params', JSON.stringify(params));
+      if (params.state && params.state == 'try_sample_request') {
+        console.log('try ------------')
+        this.trySampleRequest();
+      }
+    }
+  }
+
+  /*
+   * Request access token from Google's OAuth 2.0 server.
+   */
+  oauth2SignIn() {
+    // Google's OAuth 2.0 endpoint for requesting an access token
+    const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+    // Parameters to pass to OAuth 2.0 endpoint.
+    const params= {
+      client_id: this.clientId,
+      redirect_uri: window.location.origin,
+      scope: this.getScopes(),
+      // TODO: pass if needed
+      state: 'try_sample_request',
+      include_granted_scopes: 'true',
+      response_type: 'token',
+    };
+
+    const searchParams = new URLSearchParams(params);
+
+    console.log(searchParams);
+
+    const url = `${oauth2Endpoint}?${searchParams.toString()}`;
+    console.log(url);
+
+    const newWindow = window.open(url, 'name', 'height=600,width=450');
+      if (window.focus) {
+        newWindow.focus();
+      }
+    // window.location.replace(url);
+  }
+
+  // If there's an access token, try an API request.
+  // Otherwise, start OAuth 2.0 flow.
+  trySampleRequest() {
+      var params = JSON.parse(localStorage.getItem('oauth2-params'));
+
+
+    if (params && params['access_token']) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET',
+          'https://people.googleapis.com/v1/people/1234567890?' +
+          'access_token=' + params['access_token']);
+      xhr.onreadystatechange = function (e) {
+        console.log(xhr.response);
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log(xhr.response);
+        } else if (xhr.readyState === 4 && xhr.status === 401) {
+          // Token invalid, so prompt for user permission.
+          this.oauth2SignIn();
+        }
+      };
+      xhr.send(null);
+    } else {
+    //   this.oauth2SignIn();
+    }
+  }
+
+}
+
+const g = new GoogleOAuth('client id', '')
+    g.checkToken();
+    document.querySelector('button').addEventListener('click', () => {g.oauth2SignIn();})
+    </script>
+</body>
+</html>
