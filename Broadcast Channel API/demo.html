@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Broadcast Channel API</title>
+  </head>
+  <body>
+    <h1>Broadcast Channel API Demo</h1>
+    <div class="form-container">
+      <form id="connect-form">
+        <label for="channel-name">Channel Name:</label>
+        <input id="channel-name" type="text" placeholder="enter channel name" required />
+        <button id="connect-btn" type="submit">Connect</button>
+        <button id="disconnect-btn" type="reset" disabled>Disconnect</button>
+      </form>
+  
+      <form id="send-msg-form">
+        <label for="msg">Message Payload:</label>
+        <input id="msg" type="text" placeholder="enter message payload" required readonly />
+        <button id="send-msg-btn" type="submit" disabled>Send Message</button>
+        <a href="https://www.satyamseth.com/" target="_blank">Made by Satyam Seth</a>
+      </form>
+    </div>
+
+    <div class="output-container">
+    <h2>Logs</h2>
+    <textarea id="logs" readonly></textarea>
+  </div>
+    <script src="script.js"></script>
+  </body>
+</html>
